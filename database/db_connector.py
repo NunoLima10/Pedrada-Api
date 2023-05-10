@@ -1,8 +1,8 @@
 import os
 import sqlite3
 
-DATA_BASE_PATH = "database/pedrada.db"
-SQL_PATH = "database/pedrada.sql"
+DATA_BASE_PATH = "./database/pedrada.db"
+SQL_PATH = "./database/pedrada.sql"
 
 class SQLite_Connector:
     """Provides methods to connect to a SQLite database, 
@@ -18,6 +18,7 @@ class SQLite_Connector:
         self.sqlite_connect()
         self.create_tables()
          
+        
     def create_tables(self) -> None:
         """Reads an SQL script from a file, 
             executes the script using the SQLite connection  

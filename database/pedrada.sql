@@ -1,8 +1,8 @@
 CREATE TABLE IF NOT EXISTS user(
     id INTEGER PRIMARY KEY,
-    public_id VARCHAR(15) NOT NULL,
-    pseudonym VARCHAR(15) NOT NULL UNIQUE,
-    e_mail VARCHAR(75) NOT NULL UNIQUE,
+    public_id VARCHAR(36) NOT NULL,
+    pseudonym VARCHAR(20) NOT NULL UNIQUE,
+    email VARCHAR(75) NOT NULL UNIQUE,
     user_password VARCHAR(75) NOT NULL,
     registration_date DATE NOT NUll
 );
@@ -10,8 +10,8 @@ CREATE TABLE IF NOT EXISTS user(
 CREATE TABLE IF NOT EXISTS community(
     id INTEGER PRIMARY KEY,
     community_name VARCHAR(15) NOT NULL UNIQUE,
-    public_id VARCHAR(15) NOT NULL,
-    founder_id VARCHAR(15) NOT NULL,
+    public_id VARCHAR(36) NOT NULL,
+    founder_id INTEGER NOT NULL,
     foundation_date DATE NOT NUll,
     community_description VARCHAR(500) NOT NULL,
     FOREIGN KEY (founder_id) REFERENCES user (id)
@@ -39,11 +39,11 @@ CREATE TABLE IF NOT EXISTS post(
 );
 CREATE TABLE IF NOT EXISTS post_interaction(
     id INTEGER PRIMARY KEY,
-    posy_id INTEGER NOT NULL,
+    post_id INTEGER NOT NULL,
     user_id INTEGER NOT NULL,
     interaction TEXT CHECK( interaction IN ('UP_VOTE', 'DOWN_VOTE')),
     FOREIGN KEY (user_id) REFERENCES user (id),
-    FOREIGN KEY (posy_id) REFERENCES post (id)
+    FOREIGN KEY (post_id) REFERENCES post (id)
 );
 
 
