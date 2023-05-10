@@ -1,15 +1,16 @@
-from dotenv import Dotenv
 from database.db_connector import SQLite_Connector
 from schemas.schemas import Schema
 from src.erro_message import ErrorMessage
 from src.success_message import SuccessMessage
+from dotenv import load_dotenv
 
 import jwt
 import bcrypt
 import datetime
+import os
 
-config = Dotenv("./.env")
-SECRETE_KEY = config["SECRETE_KEY"]
+load_dotenv("./.env")
+SECRETE_KEY = os.getenv("SECRETE_KEY")
 
 class LoginController(SQLite_Connector):
     def __init__(self, db_name: str = ...) -> None:
