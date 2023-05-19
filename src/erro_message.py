@@ -8,3 +8,4 @@ class ErrorMessage(Enum):
     pseudonym_already_exist = "Pseudoanônimo ja utilizado"
     internal_error = "Erro do servidor"
     failed_login = "Email ou senha Incorreto"
+    invalid_token = "Token  não é valido"
