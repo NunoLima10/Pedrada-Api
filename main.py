@@ -19,7 +19,7 @@ class PedradaRestAPI():
         api.add_resource(Pedrada, '/')
         api.add_resource(Users, "/users")
         api.add_resource(User, "/user/<string:public_id>")
-        api.add_resource(Login, "/login")
+        api.add_resource(Login, "/login","/login/valid/<string:token>")
         app.run(debug=True)
 
 if __name__ == "__main__":

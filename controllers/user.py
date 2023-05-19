@@ -42,7 +42,7 @@ class UserController(SQLite_Connector):
         except IntegrityError as error:
             if "UNIQUE constraint failed: user.pseudonym" == str(error):
                 return Schema.api_response(
-                    status=403,
+                    status=403, #500 
                     error_message=[ErrorMessage.pseudonym_already_exist.value]
                 )
 
