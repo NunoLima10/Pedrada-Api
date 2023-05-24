@@ -44,11 +44,11 @@ class SQLite_Connector:
             exit(-1)
         self.cursor = self.connection.cursor()
 
-    def execute_sql_query(self, query: str, apply_data_schema) -> list:
+    def execute_sql_query(self, query: str, query_values: tuple, apply_data_schema) -> list:
         """Takes an SQL query as input and applies a data schema 
             to the results fetched by the cursor object
         """
-        results = self.cursor.execute(query)
+        results = self.cursor.execute(query, query_values)
         self.connection.commit()
 
         return apply_data_schema(results.fetchall())

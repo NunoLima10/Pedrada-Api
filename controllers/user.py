@@ -16,11 +16,12 @@ class UserController(SQLite_Connector):
     
     def get_user(self, public_id: str = None) -> Response:
         if public_id:
-            sql_query = f"SELECT * FROM user WHERE public_id='{public_id}"
-            users = self.execute_sql_query(sql_query, Schema.user)
+            sql_query = f"SELECT * FROM user WHERE public_id=?"
+            query_values = (public_id,)
+            users = self.execute_sql_query(sql_query, query_values,Schema.user)
         else:
             sql_query = "SELECT * FROM user"
-            users = self.execute_sql_query(sql_query, Schema.user)
+            users = self.execute_sql_query(sql_query,(),Schema.user)
 
         return Schema.api_response(status=200, data=users)
 
@@ -34,11 +35,13 @@ class UserController(SQLite_Connector):
         registration_date =  datetime.datetime.now().date().strftime("%Y-%m-%d")
         
         sql_query = f"""
-            INSERT INTO user (public_id, pseudonym, email, user_password,registration_date)
-             VALUES ('{public_id}','{pseudonym}','{email}','{hash_password}','{registration_date}');
+            INSERT INTO user (public_id, pseudonym, email, user_password,registration_date) 
+            VALUES (?,?,?,?,?);
             """
+        query_values = (public_id,pseudonym,email,hash_password,registration_date)
+        print(query_values)
         try:
-            new_user = self.execute_sql_query(sql_query, Schema.user)
+            new_user = self.execute_sql_query(sql_query,query_values,Schema.user)
         except IntegrityError as error:
             if "UNIQUE constraint failed: user.pseudonym" == str(error):
                 return Schema.api_response(

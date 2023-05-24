@@ -39,8 +39,9 @@ class LoginController(SQLite_Connector):
         pseudonym :str =  login_data["pseudonym"]
         user_password :str =  login_data["user_password"]
         
-        sql_query = f"SELECT * FROM user WHERE pseudonym='{pseudonym}'"
-        user = self.execute_sql_query(sql_query, Schema.user)
+        sql_query = f"SELECT * FROM user WHERE pseudonym=?"
+        query_values =  (pseudonym,)
+        user = self.execute_sql_query(sql_query,query_values,Schema.user)
         
         if not user:
             return Schema.api_response(
