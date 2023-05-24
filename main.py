@@ -4,6 +4,8 @@ from flask_restful import Api, Resource, reqparse
 from routes.user import Users
 from routes.user import User
 from routes.login import Login
+from routes.community import Community
+from routes.community import Communities
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
@@ -19,6 +21,8 @@ class PedradaRestAPI():
         api.add_resource(Pedrada, '/')
         api.add_resource(Users, "/users")
         api.add_resource(User, "/user/<string:public_id>")
+        api.add_resource(Communities,"/communities")
+        api.add_resource(Community,"/community/<string:public_id>")
         api.add_resource(Login, "/login","/login/valid/<string:token>")
         app.run(debug=True)
 
