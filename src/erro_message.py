@@ -9,3 +9,5 @@ class ErrorMessage(Enum):
     internal_error = "Erro do servidor"
     failed_login = "Email ou senha Incorreto"
     invalid_token = "Token  não é valido"
+    community_already_exist = "A comunidade ja existe"
+    invalid_post_type = "O tipo de post é invalido"

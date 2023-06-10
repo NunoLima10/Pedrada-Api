@@ -39,7 +39,7 @@ class UserController(SQLite_Connector):
             VALUES (?,?,?,?,?);
             """
         query_values = (public_id,pseudonym,email,hash_password,registration_date)
-        print(query_values)
+
         try:
             new_user = self.execute_sql_query(sql_query,query_values,Schema.user)
         except IntegrityError as error:

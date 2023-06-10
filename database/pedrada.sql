@@ -27,15 +27,16 @@ CREATE TABLE IF NOT EXISTS community_members(
 
 CREATE TABLE IF NOT EXISTS post(
     id INTEGER PRIMARY KEY,
-    owner_id INTEGER NOT NULL,
-    identified_id INTEGER,
-    community_id INTEGER,
+    owner_public_id VARCHAR(36) NOT NULL,
+    identified_public_id VARCHAR(36),
+    community_public_id VARCHAR(36),
     post_description VARCHAR(500) NOT NULL,
     post_time TIMESTAMP NOT NUll,
     post_date DATE NOT NUll,
-    FOREIGN KEY (owner_id) REFERENCES user (id),
-    FOREIGN KEY (identified_id) REFERENCES user (id),
-    FOREIGN KEY (community_id) REFERENCES community (id)
+    post_type TEXT CHECK( post_type IN ('identified','community')),
+    FOREIGN KEY (owner_public_id) REFERENCES user (public_id),
+    FOREIGN KEY (identified_public_id) REFERENCES user (public_id),
+    FOREIGN KEY (community_public_id) REFERENCES community (public_id)
 );
 CREATE TABLE IF NOT EXISTS post_interaction(
     id INTEGER PRIMARY KEY,
@@ -46,7 +47,3 @@ CREATE TABLE IF NOT EXISTS post_interaction(
     FOREIGN KEY (post_id) REFERENCES post (id)
 );
 
-
-
--- INSERT INTO user(username, e_mail, user_password) 
--- VALUES ("admin", "admin@voleicv.cv", "admin"); 

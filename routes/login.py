@@ -15,7 +15,7 @@ class Login(Resource):
     def get(self, token) -> None:
         return login_controller.validade_token(token)
 
-    
+
     def post(self) -> Response:
         args = login_args.parse_args()
         return login_controller.validade_login(args)
