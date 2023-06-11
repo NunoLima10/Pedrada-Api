@@ -12,14 +12,35 @@ class CommunityController(SQLite_Connector):
     def __init__(self, db_name: str = ...) -> None:
         super().__init__()
     
-    def get_community(self, name: str = None) -> Response:
+    def get_community_by_name(self, name: str = None) -> Response:
         if name:
             sql_query = f"SELECT * FROM community WHERE community_name=?"
             query_values = (name,)
             community = self.execute_sql_query(sql_query, query_values,Schema.community)
 
+            if not community:
+                return Schema.api_response(status=404)
+
             sql_query = f"SELECT * FROM post WHERE community_public_id=?"
             query_values = (community[0]["public_id"],)
+            community_posts = self.execute_sql_query(sql_query, query_values,Schema.posts)
+            return Schema.api_response(status=200, data=[community,community_posts])
+        else:
+            sql_query = "SELECT * FROM community"
+            community = self.execute_sql_query(sql_query,(),Schema.community)
+            return Schema.api_response(status=200, data=community)
+        
+    def get_community_by_id(self,public_id: str = None) -> Response:
+        if public_id:
+            sql_query = f"SELECT * FROM community WHERE public_id=?"
+            query_values = (public_id,)
+            community = self.execute_sql_query(sql_query, query_values,Schema.community)
+
+            if not community:
+                return Schema.api_response(status=404)
+
+            sql_query = f"SELECT * FROM post WHERE community_public_id=?"
+            query_values = (public_id,)
             community_posts = self.execute_sql_query(sql_query, query_values,Schema.posts)
             return Schema.api_response(status=200, data=[community,community_posts])
         else:
@@ -31,7 +52,7 @@ class CommunityController(SQLite_Connector):
     def create_community(self, community_data:dict) -> Response:
         token = community_data["token"]
         community_name = community_data["community_name"]
-        founder_id = "ffdcd729-9fb4-45da-9348-78187cf313be" #get_public_id(token)
+        founder_id = get_public_id(token)
         community_description = community_data["community_description"]
         public_id = str(uuid.uuid4())
         foundation_date =  datetime.datetime.now().date().strftime("%Y-%m-%d")

@@ -48,8 +48,9 @@ class SQLite_Connector:
         """Takes an SQL query as input and applies a data schema 
             to the results fetched by the cursor object
         """
-        results = self.cursor.execute(query, query_values)
-        self.connection.commit()
+        with self.connection:
+            results = self.cursor.execute(query, query_values)
+            self.connection.commit()
 
         return apply_data_schema(results.fetchall())
     
