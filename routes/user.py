@@ -14,19 +14,21 @@ user_controller = UserController()
 class Users(Resource):
 
     def get(self) -> Response:
-        return user_controller.get_user()
+        return user_controller.get_user_by_id()
 
     def post(self) -> Response:
         args = add_new_args.parse_args()
         return user_controller.create_user(args)
 
-class User(Resource):
+class UserByID(Resource):
 
     def get(self, public_id: str)-> Response:
-        return user_controller.get_user(public_id)
+        return user_controller.get_user_by_id(public_id)
 
-    def put(self, public_id: str)-> Response:
-        pass
+   
+class UserByPseudonym(Resource):
 
-    def delete(self, public_id: str)-> Response:
-        pass
+    def get(self, pseudonym: str)-> Response:
+        return user_controller.get_user_by_pseudonym(pseudonym)
+
+   

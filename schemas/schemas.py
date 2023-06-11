@@ -11,7 +11,7 @@ class Schema:
         "e_mail": dt[3],
         "user_password": dt[4],
         "registration_date":dt[5],
-        }  for dt in data][0] 
+        }  for dt in data]
     @staticmethod
     def community(data: tuple) -> list:
         return[
@@ -25,16 +25,16 @@ class Schema:
     
     @staticmethod
     def posts(data: tuple) -> list:
-        if not data: return []
         return [
             {
             "owner_public_id":dt[1],
-            "identified_public_id":dt[2],
-            "community_public_id":dt[3],
-            "post_description": dt[4],
-            "post_time": dt[5],
-            "post_date":dt[6],
-            "post_type":dt[7]
+            "public_id":dt[2],
+            "identified_public_id":dt[3],
+            "community_public_id":dt[4],
+            "post_description": dt[5],
+            "post_time": dt[6],
+            "post_date":dt[7],
+            "post_type":dt[8]
         }
         for dt in data]
 

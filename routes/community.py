@@ -12,19 +12,17 @@ community_controller = CommunityController()
 
 class Communities(Resource):
     def get(self) -> Response:
-        return community_controller.get_community()
+        return community_controller.get_community_by_name()
         
     def post(self) -> Response:
         args = new_community_args.parse_args()
         return community_controller.create_community(args)
 
-class Community(Resource): 
-    def get(self, name: str)-> Response:
-        return community_controller.get_community(name)
-
-    def put(self, public_id: str)-> Response:
-        pass
-
-    def delete(self, public_id: str)-> Response:
-        pass
-
+class CommunityByID(Resource): 
+    def get(self, public_id: str = None) -> Response:
+        return community_controller.get_community_by_id(public_id)
+class CommunityByName(Resource): 
+    def get(self, name: str = None) -> Response:
+        return community_controller.get_community_by_name(name)
+        
+     

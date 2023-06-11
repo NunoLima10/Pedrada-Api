@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS user(
     pseudonym VARCHAR(20) NOT NULL UNIQUE,
     email VARCHAR(75) NOT NULL UNIQUE,
     user_password VARCHAR(75) NOT NULL,
-    registration_date DATE NOT NUll
+    registration_date DATE NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS community(
@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS community_members(
 CREATE TABLE IF NOT EXISTS post(
     id INTEGER PRIMARY KEY,
     owner_public_id VARCHAR(36) NOT NULL,
+    public_id VARCHAR(36) NOT NULL,
     identified_public_id VARCHAR(36),
     community_public_id VARCHAR(36),
     post_description VARCHAR(500) NOT NULL,
