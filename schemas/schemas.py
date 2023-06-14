@@ -37,6 +37,14 @@ class Schema:
             "post_type":dt[8]
         }
         for dt in data]
+    def interaction(data: tuple) -> list:
+        return [
+            {
+            "post_id":dt[1],
+            "user_id":dt[2],
+            "interaction":dt[3],
+        }
+        for dt in data]
 
     @staticmethod
     def api_response(status: int, data=[], success_message=[], error_message=[]) -> Response:

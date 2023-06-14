@@ -14,26 +14,16 @@ class UserController(SQLite_Connector):
     def __init__(self, db_name: str = ...) -> None:
         super().__init__()
     
-    def get_user_by_id(self, public_id: str = None) -> Response:
-        if public_id:
-            sql_query = f"SELECT * FROM user WHERE public_id=?"
-            query_values = (public_id,)
-            users = self.execute_sql_query(sql_query, query_values,Schema.user)
+    def get_user(self, filter: str , filter_type: str) -> Response:
+
+        if filter_type:
+            sql_query = f"SELECT * FROM user WHERE {filter_type}=?"
+            query_values = (filter,)
+            users = self.execute_sql_query(sql_query, query_values, Schema.user)
         else:
             sql_query = "SELECT * FROM user"
             users = self.execute_sql_query(sql_query,(),Schema.user)
             
-        return Schema.api_response(status=200, data=users)
-
-    def get_user_by_pseudonym(self, pseudonym: str = None) -> Response:
-        if pseudonym:
-            sql_query = f"SELECT * FROM user WHERE pseudonym=?"
-            query_values = (pseudonym,)
-            users = self.execute_sql_query(sql_query, query_values,Schema.user)
-        else:
-            sql_query = "SELECT * FROM user"
-            users = self.execute_sql_query(sql_query,(),Schema.user)
-
         return Schema.api_response(status=200, data=users)
 
     def create_user(self, user_data:dict) -> Response:

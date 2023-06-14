@@ -7,4 +7,5 @@ class SuccessMessage(Enum):
     new_community = "Comunidade Criada com sucesso"
     new_identified_post ="Post criado com sucesso"
     new_community_post ="Post criado com sucesso"
+    new_interaction = "Interação criado com sucesso"
     

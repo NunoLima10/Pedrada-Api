@@ -12,7 +12,7 @@ class Login(Resource):
     def __init__(self) -> None:
         super().__init__()
     
-    def get(self, token) -> None:
+    def get(self, token) -> Response:
         return login_controller.validade_token(token)
 
 
