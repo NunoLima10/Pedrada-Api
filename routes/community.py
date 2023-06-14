@@ -1,4 +1,4 @@
-from flask import Response
+from flask import Response,request
 from flask_restful import Resource, reqparse
 from controllers.community import CommunityController
 
@@ -12,17 +12,19 @@ community_controller = CommunityController()
 
 class Communities(Resource):
     def get(self) -> Response:
-        return community_controller.get_community_by_name()
+        name = request.args.get("name")
+        public_id = request.args.get("public_id")
+
+        if name:
+            return community_controller.get_community(filter=name, filter_type="community_name")
         
+        if public_id:
+            return community_controller.get_community(filter=public_id, filter_type="public_id")
+        
+        return community_controller.get_community(filter=None, filter_type=None)
+
     def post(self) -> Response:
         args = new_community_args.parse_args()
         return community_controller.create_community(args)
 
-class CommunityByID(Resource): 
-    def get(self, public_id: str = None) -> Response:
-        return community_controller.get_community_by_id(public_id)
-class CommunityByName(Resource): 
-    def get(self, name: str = None) -> Response:
-        return community_controller.get_community_by_name(name)
-        
      

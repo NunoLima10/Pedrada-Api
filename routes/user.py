@@ -1,4 +1,4 @@
-from flask import Response
+from flask import Response,request
 from flask_restful import Resource, reqparse
 
 from controllers.user import UserController
@@ -14,21 +14,21 @@ user_controller = UserController()
 class Users(Resource):
 
     def get(self) -> Response:
-        return user_controller.get_user_by_id()
+        pseudonym = request.args.get("pseudonym")
+        public_id = request.args.get("public_id")
+
+        if pseudonym:
+            return user_controller.get_user(filter=pseudonym,filter_type="pseudonym")
+        
+        if public_id:
+            return user_controller.get_user(filter=public_id,filter_type="public_id")
+        
+        return user_controller.get_user(filter=None,filter_type=None)
 
     def post(self) -> Response:
         args = add_new_args.parse_args()
         return user_controller.create_user(args)
 
-class UserByID(Resource):
 
-    def get(self, public_id: str)-> Response:
-        return user_controller.get_user_by_id(public_id)
-
-   
-class UserByPseudonym(Resource):
-
-    def get(self, pseudonym: str)-> Response:
-        return user_controller.get_user_by_pseudonym(pseudonym)
 
    
