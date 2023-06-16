@@ -4,7 +4,7 @@ import datetime
 import os
 
 load_dotenv("./.env")
-SECRETE_KEY = os.getenv("SECRETE_KEY")
+SECRETE_KEY = os.getenv("SECRETE_KEY") or "SECRETE_KEY"
 ALGORITHM = "HS256"
 VALID_DURATION_TIME = 1 #days
 
