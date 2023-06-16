@@ -13,6 +13,9 @@ user_controller = UserController()
 
 class Users(Resource):
 
+    def options(self):
+        print("chegouu")
+
     def get(self) -> Response:
         pseudonym = request.args.get("pseudonym")
         public_id = request.args.get("public_id")

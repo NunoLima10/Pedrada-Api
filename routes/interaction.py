@@ -10,6 +10,9 @@ new_interaction_args.add_argument("interaction", type=str, required=True, help="
 interaction_controller = InteractionController()
 
 class Interaction(Resource):
+    def options(self):
+        print("chegouu")
+
     def get(self, post_public_id) -> Response:
         print(post_public_id)
         return interaction_controller.get_interaction(post_public_id)

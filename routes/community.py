@@ -11,6 +11,9 @@ new_community_args.add_argument("community_description", type=str, required=True
 community_controller = CommunityController()
 
 class Communities(Resource):
+    def options(self):
+        print("chegouu")
+        
     def get(self) -> Response:
         name = request.args.get("name")
         public_id = request.args.get("public_id")
@@ -25,6 +28,7 @@ class Communities(Resource):
 
     def post(self) -> Response:
         args = new_community_args.parse_args()
+        print(args)
         return community_controller.create_community(args)
 
      

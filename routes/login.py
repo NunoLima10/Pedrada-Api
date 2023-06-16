@@ -9,8 +9,8 @@ login_args.add_argument("user_password", type=str, required=True, help="Password
 login_controller = LoginController()
 
 class Login(Resource):
-    def __init__(self) -> None:
-        super().__init__()
+    def options(self):
+        print("chegouu")
     
     def get(self, token) -> Response:
         return login_controller.validade_token(token)

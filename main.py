@@ -1,10 +1,11 @@
-from flask import Flask, jsonify
+from flask import Flask
 from flask_cors import CORS
-from flask_restful import Api, Resource, reqparse
+from flask_restful import Api, Resource
+
 from routes.user import Users
 from routes.login import Login
 from routes.community import Communities
-from  routes.posts import Posts
+from routes.posts import Posts
 from routes.interaction import Interaction
 
 
@@ -14,8 +15,8 @@ api = Api(app)
 
 class Pedrada(Resource):
     def get(self):
-        
         return "Pedrada Flask RestFull API"
+   
     
 class PedradaRestAPI():
     @staticmethod

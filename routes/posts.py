@@ -12,6 +12,9 @@ new_posts_args.add_argument("post_type", type=str, required=True, help="post_typ
 post_controller = PostController()
 
 class Posts(Resource):
+    def options(self):
+        print("chegouu")
+        
     def get(self, public_id: str = None) -> Response:
         return post_controller.get_post(public_id)
 
